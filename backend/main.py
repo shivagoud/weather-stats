@@ -19,6 +19,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.post("/upload/")
 async def upload_file(file: UploadFile = File(...)):
     db = SessionLocal()
@@ -27,13 +28,13 @@ async def upload_file(file: UploadFile = File(...)):
         with db.begin():
             contents = await file.read()
             df = pd.read_csv(io.StringIO(contents.decode('utf-8')))
-            
+
             # Bulk insert for better performance
             db.bulk_insert_mappings(
                 RawData,
                 df.to_dict(orient='records')
             )
-            
+
             cleaned_df = clean_data(df)
             db.bulk_insert_mappings(
                 CleanedData,
@@ -48,10 +49,20 @@ async def upload_file(file: UploadFile = File(...)):
     finally:
         db.close()
 
+
+@app.get("/data/")
+async def cleaned_data():
+    db = SessionLocal()
+
+    # Query using Postgres timestamp range
+    results = db.query(CleanedData).all()
+
+    return results
+
 @app.get("/filter/")
 async def filter_data(start: datetime, end: datetime):
     db = SessionLocal()
-    
+
     # Query using Postgres timestamp range
     results = db.query(CleanedData).filter(
         between(

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { TemperatureSample } from "./types";
+import { TemperatureSample, TemperatureStats } from "./types";
 import { fetchData, fetchFilteredStats } from "./api";
 
 export const useTemperatureHistoryQuery = () => {
@@ -10,7 +10,7 @@ export const useTemperatureHistoryQuery = () => {
 };
 
 export const useFilteredStatsQuery = (from: Date, to: Date) => {
-  return useQuery<TemperatureSample[]>({
+  return useQuery<TemperatureStats>({
     queryKey: ["GET_STATS", from, to],
     queryFn: () => fetchFilteredStats(from, to),
   });

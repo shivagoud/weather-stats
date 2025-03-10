@@ -1,10 +1,11 @@
 import {
-  LineChart,
   Line,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
+  Area,
+  ComposedChart,
 } from "recharts";
 import { useFilteredStatsQuery } from "../lib/queries";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
@@ -41,21 +42,44 @@ const TimeSeriesChart = () => {
       {isLoading ? (
         "Loading..."
       ) : (
-        <LineChart width={1000} height={400} data={data}>
+        <ComposedChart
+          width={1000}
+          height={400}
+          data={data?.map((d) => ({
+            ...d,
+            tempRange: [d.min_temperature, d.max_temperature],
+          }))}
+        >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="period_start" tickFormatter={dateFormatter} />
           <YAxis />
           <Tooltip
-            formatter={(value) => Number(value).toFixed(2)}
+            formatter={(value, label) => {
+              switch (label) {
+                case "Min & Max":
+                  return `${Number(value[0]).toFixed(2)} to ${Number(
+                    value[1]
+                  ).toFixed(2)}`;
+                default:
+                  return Number(value).toFixed(2);
+              }
+            }}
             labelFormatter={dateFormatter}
           />
           <Line
             type="monotone"
             name="Temperature"
             dataKey="median_temperature"
+            // stroke="#8884d8"
+          />
+          <Area
+            type="monotone"
+            dataKey="tempRange"
+            name="Min & Max"
+            fill="#8884d833"
             stroke="#8884d8"
           />
-        </LineChart>
+        </ComposedChart>
       )}
     </div>
   );

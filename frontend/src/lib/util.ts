@@ -1,4 +1,5 @@
 import { TemperatureSample } from "./types";
+import { addHours, addMinutes } from "date-fns/fp";
 
 export const uploadFile = (file: File) => {
   const formData = new FormData();
@@ -42,4 +43,22 @@ const downloadCSV = (csvStr: string) => {
   hiddenElement.target = "_blank";
   hiddenElement.download = "output.csv";
   hiddenElement.click();
+};
+
+export const generateRandomData = () => {
+  const data: TemperatureSample[] = [];
+
+  const getPrev = addMinutes(-30);
+
+  let timestamp = new Date();
+  for (let i = 0; i < 500; i++) {
+    data.push({
+      location: "Hyderabad",
+      temperature: 5 + Math.random() * 25,
+      timestamp,
+    });
+    timestamp = getPrev(timestamp);
+  }
+
+  return data;
 };

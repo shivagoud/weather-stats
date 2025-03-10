@@ -1,8 +1,8 @@
 .root {
   .actions {
     display: flex;
-    flex-direction: column;
-    align-items: end;
+    justify-content: end;
+    gap: 8px;
   }
   .dnd {
     padding: 8px;

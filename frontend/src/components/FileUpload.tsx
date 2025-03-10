@@ -1,6 +1,6 @@
 import { useDropzone } from "react-dropzone";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { downloadData, uploadFile } from "../lib/util";
+import { downloadData, generateRandomData, uploadFile } from "../lib/util";
 import classes from "./FileUpload.module.scss";
 import { Button } from "@mui/material";
 import { SAMPLE_DATA } from "../lib/constants";
@@ -29,7 +29,14 @@ const FileUpload = () => {
             variant="text"
             onClick={() => downloadData(SAMPLE_DATA)}
           >
-            Download Sample File
+            Download Sample
+          </Button>
+          <Button
+            size="small"
+            variant="text"
+            onClick={() => downloadData(generateRandomData())}
+          >
+            Generate Random
           </Button>
         </div>
         <div {...getRootProps()} className={classes.dnd}>

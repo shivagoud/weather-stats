@@ -10,6 +10,6 @@ export const SAMPLE_DATA: TemperatureSample[] = [
 
 export const HEADER_LINKS: Record<string, string> = {
   "/": "Dashboard",
-  "/history": "History",
+  "/history": "Report",
   "/upload": "Upload",
 };

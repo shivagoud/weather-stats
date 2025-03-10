@@ -85,3 +85,18 @@ async def filter_data(start: datetime, end: datetime):
   ).all()
 
   return results
+
+
+@app.get("/stats/")
+async def filter_stats(start: datetime, end: datetime):
+  db = SessionLocal()
+
+  # Query using Postgres timestamp range
+  results = db.query(AnalysisResults).filter(
+    between(
+      AnalysisResults.period_start,
+      start.astimezone(timezone.utc),
+      end.astimezone(timezone.utc)
+    )
+  ).all()
+  return results

@@ -3,6 +3,9 @@ import { downloadData } from "../lib/util";
 import classes from "./History.module.scss";
 import { Button } from "@mui/material";
 import { useTemperatureHistoryQuery } from "../lib/queries";
+import { format } from "date-fns/fp";
+
+const dateFormatter = format("dd-MMM-yyyy hh:mma");
 
 const History = () => {
   const { data, isLoading } = useTemperatureHistoryQuery();
@@ -21,8 +24,14 @@ const History = () => {
       <DataGrid
         rows={data}
         columns={[
-          { field: "timestamp", headerName: "Timestamp", width: 200 },
-          { field: "cleaned_values", headerName: "Value", width: 130 },
+          { field: "location", headerName: "Location", width: 130 },
+          { field: "temperature", headerName: "Value", width: 130 },
+          {
+            field: "timestamp",
+            headerName: "Timestamp",
+            width: 200,
+            valueFormatter: dateFormatter,
+          },
         ]}
       />
     </div>

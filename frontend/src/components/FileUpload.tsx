@@ -1,9 +1,10 @@
 import { useDropzone } from "react-dropzone";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { downloadData, generateRandomData, uploadFile } from "../lib/util";
+import { downloadData, generateRandomData } from "../lib/util";
 import classes from "./FileUpload.module.scss";
 import { Button } from "@mui/material";
 import { SAMPLE_DATA } from "../lib/constants";
+import { uploadFile } from "../lib/api";
 
 const FileUpload = () => {
   const queryClient = useQueryClient();
@@ -15,7 +16,6 @@ const FileUpload = () => {
   const { getRootProps, getInputProps } = useDropzone({
     accept: { "text/csv": [".csv", ".xlsx"] },
     onDrop: (files) => {
-      console.log(files);
       upload(files[0]);
     },
   });

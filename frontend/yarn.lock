@@ -547,6 +547,19 @@
     reselect "^5.1.1"
     use-sync-external-store "^1.0.0"
 
+"@mui/x-date-pickers@^7.27.3":
+  version "7.27.3"
+  resolved "https://registry.yarnpkg.com/@mui/x-date-pickers/-/x-date-pickers-7.27.3.tgz#61171daf74802c17f9d861068eab422231389502"
+  integrity sha512-igfKTPC4ZVCmS5j/NXcXBtj/hHseQHzRpCpIB1PMnJGhMdRYXnz8qZz5XhlNBKlzJVXkGu6Uil+obZpCLNj1xg==
+  dependencies:
+    "@babel/runtime" "^7.25.7"
+    "@mui/utils" "^5.16.6 || ^6.0.0"
+    "@mui/x-internals" "7.26.0"
+    "@types/react-transition-group" "^4.4.11"
+    clsx "^2.1.1"
+    prop-types "^15.8.1"
+    react-transition-group "^4.4.5"
+
 "@mui/x-internals@7.26.0":
   version "7.26.0"
   resolved "https://registry.yarnpkg.com/@mui/x-internals/-/x-internals-7.26.0.tgz#e8c3060582c102127ab55b0a93e881930dac107b"
@@ -883,7 +896,7 @@
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-19.0.4.tgz#bedba97f9346bd4c0fe5d39e689713804ec9ac89"
   integrity sha512-4fSQ8vWFkg+TGhePfUzVmat3eC14TXYSsiiDSLI0dVLsrm9gZFABjPy/Qu6TKgl1tq1Bu1yDsuQgY3A3DOjCcg==
 
-"@types/react-transition-group@^4.4.12":
+"@types/react-transition-group@^4.4.11", "@types/react-transition-group@^4.4.12":
   version "4.4.12"
   resolved "https://registry.yarnpkg.com/@types/react-transition-group/-/react-transition-group-4.4.12.tgz#b5d76568485b02a307238270bfe96cb51ee2a044"
   integrity sha512-8TV6R3h2j7a91c+1DXdJi3Syo69zzIZbz7Lg5tORM5LEJG7X/E6a1V3drRyBRZq7/utz7A+c4OgYLiLcYGHG6w==

@@ -1,3 +1,4 @@
+import calendar
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
@@ -42,16 +43,20 @@ async def upload_file(file: UploadFile = File(...)):
       )
 
       # Perform analysis
-      stats = calculate_stats(cleaned_df)
-      db.add(AnalysisResults(
-          period_start=pd.Timestamp.now(),
-          period_end=pd.Timestamp.now(),
-          mean_temperature=stats['mean'],
-          median_temperature=stats["median"],
-          min_temperature=stats["min"],
-          max_temperature=stats["max"],
-          location="Hyderabad"
-      ))
+      grouped = cleaned_df.groupby(["date"])
+
+      for name, group in grouped:
+
+        stats = calculate_stats(group)
+        db.add(AnalysisResults(
+            period_start=name,
+            period_end=pd.to_datetime(name[0]) + pd.DateOffset(days=1),
+            mean_temperature=stats['mean'],
+            median_temperature=stats["median"],
+            min_temperature=stats["min"],
+            max_temperature=stats["max"],
+            location="Hyderabad"
+        ))
       db.commit()
 
   except Exception as e:

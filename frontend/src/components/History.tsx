@@ -22,6 +22,7 @@ const History = () => {
         )}
       </div>
       <DataGrid
+        initialState={{ pagination: { paginationModel: { pageSize: 10 } } }}
         rows={data}
         columns={[
           { field: "location", headerName: "Location", width: 130 },

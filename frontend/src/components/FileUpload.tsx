@@ -1,7 +1,9 @@
 import { useDropzone } from "react-dropzone";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { uploadFile } from "../lib/util";
+import { downloadData, uploadFile } from "../lib/util";
 import classes from "./FileUpload.module.scss";
+import { Button } from "@mui/material";
+import { SAMPLE_DATA } from "../lib/constants";
 
 const FileUpload = () => {
   const queryClient = useQueryClient();
@@ -19,10 +21,23 @@ const FileUpload = () => {
   });
 
   return (
-    <div {...getRootProps()} className={classes.root}>
-      <input {...getInputProps()} />
-      <p>Drag & drop CSV/Excel file here</p>
-    </div>
+    <>
+      <div className={classes.root}>
+        <div className={classes.actions}>
+          <Button
+            size="small"
+            variant="text"
+            onClick={() => downloadData(SAMPLE_DATA)}
+          >
+            Download Sample File
+          </Button>
+        </div>
+        <div {...getRootProps()} className={classes.dnd}>
+          <input {...getInputProps()} />
+          <p>Drag & drop CSV/Excel file here</p>
+        </div>
+      </div>
+    </>
   );
 };
 

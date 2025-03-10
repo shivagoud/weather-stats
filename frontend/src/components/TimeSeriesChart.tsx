@@ -1,4 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
 import {
   LineChart,
   Line,
@@ -7,13 +6,10 @@ import {
   CartesianGrid,
   Tooltip,
 } from "recharts";
-import { fetchData } from "../lib/util";
+import { useTemperatureHistoryQuery } from "../lib/queries";
 
 const TimeSeriesChart = () => {
-  const { data, isLoading } = useQuery<any[]>({
-    queryKey: ["GET_DATA"],
-    queryFn: fetchData,
-  });
+  const { data, isLoading } = useTemperatureHistoryQuery();
 
   if (isLoading) return "Loading...";
 

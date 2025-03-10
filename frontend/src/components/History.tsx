@@ -1,18 +1,23 @@
 import { DataGrid } from "@mui/x-data-grid";
-import { useQuery } from "@tanstack/react-query";
-import { fetchData } from "../lib/util";
+import { downloadData } from "../lib/util";
 import classes from "./History.module.scss";
+import { Button } from "@mui/material";
+import { useTemperatureHistoryQuery } from "../lib/queries";
 
 const History = () => {
-  const { data, isLoading } = useQuery<any[]>({
-    queryKey: ["GET_DATA"],
-    queryFn: fetchData,
-  });
+  const { data, isLoading } = useTemperatureHistoryQuery();
 
   if (isLoading) return "Loading...";
 
   return (
-    <div className={classes.history}>
+    <div className={classes.root}>
+      <div className={classes.actions}>
+        {data && (
+          <Button variant="outlined" onClick={() => downloadData(data)}>
+            Download
+          </Button>
+        )}
+      </div>
       <DataGrid
         rows={data}
         columns={[
